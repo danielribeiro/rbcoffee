@@ -1,0 +1,10 @@
+/nbproject/
+pkg
+
+## EMACS
+*~
+\#*
+.\#*
+
+## Build
+*.gem
