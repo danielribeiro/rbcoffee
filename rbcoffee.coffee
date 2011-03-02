@@ -8,6 +8,16 @@ raise = (message) -> throw new Error(message)
 abstract_method = -> raise "Subclass responsability"
 abstract_property = -> raise "Abstract property"
 
+# Returns a shalow clone of an object
+clone = (obj) ->
+    ret = {}
+    for k, v of obj
+        ret[k] = v
+    return ret
+
+
+eq = (x, y) -> return `x == y`
+
 # Define a method called methodName, with body func on the class given
 define = (clas, methodName, func) -> clas.prototype[methodName] = func
 
@@ -16,11 +26,15 @@ patch = (clas, mixed) ->
     (define clas, name, method) for name, method of mixed
     return
 
+
+isAbstract = (m) -> m == abstract_method or m == abstract_property
+
 #adds all atributes of mixed into clas. For actual classes, it is the mixin semantics
 #Will not override existing method with abstract methods of the mixxed class.
 mixinWith = (clas, mixed) ->
     for name, m of mixed
-        unless clas.prototype[name]? and (m == abstract_method or m == abstract_property)
+        unless isAbstract(m) or
+        (clas.prototype[name]? and not isAbstract(clas.prototype[name]))
             define clas, name, m
     return
 
