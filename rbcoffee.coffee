@@ -47,14 +47,14 @@ mixin = (clas, traits...) ->
 
 # return the instance methods of a class.
 methods = (clas) ->
-    ret = c for c of clas.prototype
+    ret = (c for c of clas.prototype)
     return ret unless clas.__super__
     ret.concat methods clas.__super__.constructor
 
 # return the instance methods of a class. Only compute if func of the superclass is true.
 methodsWhile = (clas, func) ->
     return [] unless func(clas)
-    ret = c for c of clas.prototype
+    ret = (c for c of clas.prototype)
     return ret unless clas.__super__
     ret.concat methodsWhile clas.__super__.constructor, func
 
