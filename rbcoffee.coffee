@@ -63,6 +63,3 @@ methodsOfInstance = (instance) -> methods instance.constructor
 
 # Like methodsUntil, but works on an instance
 methodsOfInstanceWhile = (instance, func) -> methodsWhile instance.constructor, func
-
-
-callIt = (f) -> f()
