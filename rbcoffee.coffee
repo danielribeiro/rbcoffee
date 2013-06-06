@@ -16,6 +16,14 @@ clone = (obj) ->
         ret[k] = v
     return ret
 
+# Mixins for objects. Example: Singleton = withMixin Trait, { mymethod: -> "output" }
+withMixin = (mixed, obj) ->
+    for name, m of mixed
+        unless isAbstract(m) or (obj[name]? and not isAbstract(obj[name])))
+            obj[name] = m
+    return obj
+
+
 
 eq = (x, y) -> return `x == y`
 
