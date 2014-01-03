@@ -1,9 +1,9 @@
 # Rubyisms in coffescript
-puts = (args...) ->
-    return unless @["console"]
-    for arg in args
-        console.log(arg)
-    return
+puts = if @["console"]?
+        Function.prototype.bind.call(console.log, console)
+    else
+        -> 
+
 raise = (message) -> throw new Error(message)
 abstract_method = -> raise "Subclass responsability"
 abstract_property = -> raise "Abstract property"
